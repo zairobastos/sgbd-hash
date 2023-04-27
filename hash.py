@@ -106,8 +106,8 @@ class Hash:
         if(dados[valor]['Inserido'] == True):
                 print('Funcionário já inserido!')
         else: 
+            pos = self.returnPos(nome=dados[valor]['Nome'], idade=dados[valor]['Idade'], departamento=dados[valor]['Departamento'], salario=dados[valor]['Salário'], telefone = dados[valor]['Telefone'])
             tel = int(dados[valor]['Telefone'].split("-")[1])
-            pos = self.funHash(valor=tel)
             if (self.tabHash[pos] == None):
                 self.tabHash[pos] = dados[valor]
                 dados[valor]['Inserido'] = True
@@ -127,18 +127,26 @@ class Hash:
             self.insert(item)
 
     # responsável por retornar o valor hash
-    def returnPos(self,nome,idade,departamento,salario,telefone):
+    def returnPos(self,nome,idade,departamento,salario,telefone,tam=29):
         tamNome = len(nome)
         if departamento == 'Vendas':
             valdep = 2
         elif departamento == 'Administração':
             valdep = 17
         elif departamento == 'Recursos Humanos':
-            valdep = 31
-        elif departamento == 'Diretoria':
             valdep = 29
+        elif departamento == 'Diretoria':
+            valdep = 31
         else:
             valdep = 5
         valTel = int(telefone.split("-")[1])
-        soma = tamNome + idade + valdep + salario + valTel
-        print(soma % 13)
+        val_hash1 = tamNome + idade + valdep + salario + valTel
+        hash1 = val_hash1 % tam
+
+        str_info = nome + str(idade) + departamento + str(salario) + telefone
+        val_hash2 = sum(ord(char) for char in str_info)
+        hash2 = 1 + (val_hash2 % tam-1)
+
+        hash_final = (hash1+hash2) % tam
+
+        return hash_final

@@ -2,7 +2,7 @@ from hash import Hash
 import os
 from data import dados
 class Main:
-    hash = Hash(tam=13)
+    hash = Hash(tam=29)
 
     def opcao(self):
         repete = True
@@ -36,7 +36,7 @@ class Main:
                     print("Opção selecionada: 6. Mostrar saída dos hash")
                     list= [0,1,2,3,4,5,6,7,8,9]
                     for item in list:
-                        self.hash.returnPos(nome=dados[item]['Nome'], idade=dados[item]['Idade'], departamento=dados[item]['Departamento'], salario=dados[item]['Salário'], telefone = dados[item]['Telefone'])
+                        print(self.hash.returnPos(nome=dados[item]['Nome'], idade=dados[item]['Idade'], departamento=dados[item]['Departamento'], salario=dados[item]['Salário'], telefone = dados[item]['Telefone']))
             if(opc>7 or opc<0):
                 print('aqui')
                 os.system("clear") or None
